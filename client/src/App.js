@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Route } from "react-router-dom";
+import { Route, useHistory } from "react-router-dom";
 import SavedList from "./Movies/SavedList";
 import MovieList from "./Movies/MovieList";
 import UpdateMovie from "./Movies/UpdateMovie";
+import AddMovie from "./Movies/AddMovie";
 import Movie from "./Movies/Movie";
 import axios from 'axios';
 
 const App = () => {
   const [savedList, setSavedList] = useState([]);
   const [movieList, setMovieList] = useState([]);
+  const history = useHistory();
 
   const getMovieList = () => {
     axios
@@ -21,6 +23,11 @@ const App = () => {
     setSavedList([...savedList, movie]);
   };
 
+  const handleAdd = (evt) => {
+    evt.preventDefault();
+    history.push("/add-movie");
+  }
+
   useEffect(() => {
     getMovieList();
   }, []);
@@ -28,6 +35,7 @@ const App = () => {
   return (
     <>
       <SavedList list={savedList} />
+      <button onClick={handleAdd} >Add Movie</button>
 
       <Route exact path="/">
         <MovieList movies={movieList} />
@@ -42,6 +50,10 @@ const App = () => {
 
       <Route path="/update-movie/:id" >
         <UpdateMovie movieList={movieList} setMovieList={setMovieList}/>
+      </Route>
+
+      <Route path="/add-movie">
+        <AddMovie setMovieList={setMovieList} />
       </Route>
     </>
   );

@@ -20,10 +20,12 @@ function Movie({ addToSavedList, setMovieList }) {
   };
 
   const handleUpdateClick = (evt) => {
+    evt.preventDefault();
     history.push(`/update-movie/${params.id}`);
   }
 
   const handleDeleteClick = (evt) => {
+    evt.preventDefault();
     axios
     .delete(`http://localhost:5000/api/movies/${params.id}`)
     .then (res=>{

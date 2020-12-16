@@ -47,6 +47,12 @@ export default function UpdateMovie(props){
       .catch((err)=>{
         console.log("UpdateMovie PUT Error: ", err);
       });
+    setMovie({
+      title: "",
+      director: "",
+      metascore: "",
+      stars: []
+    })
   }
 
   return(
@@ -72,7 +78,7 @@ export default function UpdateMovie(props){
         <label>Metascore:
           <input 
             name="metascore"
-            type="number"
+            type="text"
             value={movie.metascore}
             onChange={handleChanges}
           />
